@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+
+
+<div style="text-align: center; background-color: #ffffff; padding: 50px; border-radius: 10px; box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0);">
+    <center><img class="my_image my_image_padding" src="{% static 'img/banner.png' %}" style="width:1250px;" alt="school store"></center>
+    <a style="display: inline-block; background-color: #3498db; color: white; padding: 15px 30px; text-decoration: none; border-radius: 5px; transition: background-color 0.3s ease;" href="{% url 'form' %}">Click Here</a>
+</div>
+
+{% endblock %}

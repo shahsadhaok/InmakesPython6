@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>Wecome</h2>
+<h2>Registration Form</h2>
+
+
+<form method="post" action="{% url 'form' %}">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name" class="form-control" placeholder="Your Name" required>
+    </div>
+    <div class="form-group">
+        <label for="dob">DOB:</label>
+        <input type="date" name="dob" id="dob" class="form-control" required>
+    </div>
+    <div class="form-group">
+        <label for="age">Age:</label>
+        <input type="number" name="age" id="age" class="form-control" placeholder="Your Age" required>
+    </div>
+    <div class="form-group">
+        <label>Gender:</label>
+        <div class="form-check">
+        <input type="radio" name="gender" value="male" class="form-check-input" required>
+        <label class="form-check-label">Male</label>
+    </div>
+    <div class="form-check">
+        <input type="radio" name="gender" value="female" class="form-check-input" required>
+        <label class="form-check-label">Female</label>
+    </div>
+    <div class="form-check">
+        <input type="radio" name="gender" value="other" class="form-check-input" required>
+        <label class="form-check-label">Other</label>
+    </div>
+    <div class="form-group">
+        <label for="phone_number">Phone Number:</label>
+        <input type="text" name="phone_number" id="phone_number" class="form-control" placeholder="1234567890" pattern="[0-9]{10}" required>
+    </div>
+    <div class="form-group">
+         <label for="email">Email:</label>
+         <input type="email" name="email" id="email" class="form-control" placeholder="your@example.com" required>
+    </div>
+    <div class="form-group">
+         <label for="address">Address:</label>
+         <textarea name="address" id="address" class="form-control" placeholder="Your Address" rows="4" required></textarea>
+    </div>
+    <div class="form-group">
+           <label for="department">Department:</label>
+           <select name="department_id" id="department" class="form-control" onchange="updateBranches()" required>
+               <option value="">Select Department</option>
+               <option value="computerscience">Computer Science</option>
+               <option value="biologyscience">Biology Science</option>
+               <option value="commerce">Commerce</option>
+               <option value="humanities">Humanities</option>
+               <option value="journalism">Journalism</option>
+           </select>
+    </div>
+    <div class="form-group">
+          <label for="course">Course:</label>
+          <select id="course" name="course_id" class="form-control" required>
+          <option value="">Select Course</option>
+          </select>
+    </div>
+    <div class="form-group">
+          <label for="purpose">Purpose For:</label>
+          <select id="purpose" name="purpose" class="form-control" required>
+              <option value="">Choose</option>
+              <option value="enquiry">Enquiry</option>
+              <option value="order">Place Order</option>
+              <option value="return">Return</option>
+          </select>
+    </div>
+    <div class="form-group">
+          <label>Materials Provide:</label>
+     <div class="form-check">
+          <input type="checkbox" id="notebook" name="materials_provide" value="Note Book" class="form-check-input">
+          <label class="form-check-label">Note Book</label>
+     </div>
+     <div class="form-check">
+           <input type="checkbox" id="pen" name="materials_provide" value="Pen" class="form-check-input">
+           <label class="form-check-label">Pen</label>
+     </div>
+     <div class="form-check">
+           <input type="checkbox" id="exam_paper" name="materials_provide" value="Exam Paper" class="form-check-input">
+           <label class="form-check-label">Exam Paper</label>
+     </div>
+     <div class="form-check">
+           <input type="checkbox" id="pencil" name="materials_provide" value="Pencil" class="form-check-input">
+           <label class="form-check-label">Pencil</label>
+     </div>
+     <div class="form-check">
+           <input type="checkbox" id="calculator" name="materials_provide" value="Calculator" class="form-check-input">
+           <label class="form-check-label">Calculator</label>
+     </div>
+     <div class="form-check">
+           <input type="checkbox" id="bag" name="materials_provide" value="Bag" class="form-check-input">
+           <label class="form-check-label">Bag</label>
+     </div>
+     <div class="form-check">
+           <input type="checkbox" id="pouch" name="materials_provide" value="Pouch" class="form-check-input">
+           <label class="form-check-label">Pouch</label>
+     </div>
+     <div class="form-check">
+           <input type="checkbox" id="highlighters" name="materials_provide" value="Highlighters" class="form-check-input">
+           <label class="form-check-label">Highlighters</label>
+     </div>
+    </div>
+    <div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+    </div>
+</form>
+{% if message %}
+    <p>{{ message }}</p>
+    <a href="{% url 'home' %}">Go to Home</a>
+{% endif %}
+<script>
+function updateBranches() {
+    var departmentSelect = document.getElementById("department");
+    var courseSelect = document.getElementById("course");
+    var selectedDepartment = departmentSelect.value;
+
+    // Clear existing options
+    courseSelect.innerHTML = '<option value="">Select Course</option>';
+
+    // Define the courses for each department
+    var courses = {
+        computerscience: ['Computer Science', 'Physics', 'Chemistry', 'Mathematics'],
+        biologyscience: ['Biology', 'Physics', 'Chemistry', 'Mathematics'],
+        commerce: ['Business Studies', 'Accountancy', 'Economics', 'Computer Application'],
+        humanities: ['History', 'Political Science', 'Economics', 'Geography'],
+        journalism: ['History', 'Political Science', 'Economics', 'Psychology']
+    };
+
+    // Populate the course dropdown based on the selected department
+    if (selectedDepartment in courses) {
+        courses[selectedDepartment].forEach(function(course) {
+            var option = document.createElement("option");
+            option.text = course;
+            option.Value = course;
+            courseSelect.appendChild(option);
+        });
+    }
+}
+
+</script>
+    {% endblock %}
